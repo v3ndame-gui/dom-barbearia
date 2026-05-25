@@ -252,6 +252,15 @@ function Index() {
       <Testimonials />
       <Contact />
       <Footer />
+      <a
+        href={wa(DEFAULT_MSG)}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="WhatsApp"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/40 ring-4 ring-[#25D366]/25 transition hover:scale-110"
+      >
+        <MessageCircle className="h-7 w-7" fill="currentColor" strokeWidth={0} />
+      </a>
     </main>
   );
 }
