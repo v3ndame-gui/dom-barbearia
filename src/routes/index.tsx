@@ -5,6 +5,7 @@ import hero1 from "@/assets/hero-1.png";
 import hero2 from "@/assets/hero-2.png";
 import hero3 from "@/assets/hero-3.png";
 import hero4 from "@/assets/hero-4.png";
+import corteNew from "@/assets/corte-new.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -12,18 +13,42 @@ export const Route = createFileRoute("/")({
 
 const HERO_IMAGES = [hero1, hero2, hero3, hero4];
 
+const WHATSAPP = "5511937654207";
+const wa = (msg: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+const DEFAULT_MSG = "Olá, gostaria de marcar um horário.";
+
 const SERVICES = [
-  { name: "CORTE", price: "60", img: hero1, desc: "Cortes clássicos e modernos" },
-  { name: "BARBA", price: "60", img: hero2, desc: "Contorno preciso e barba feita" },
+  { name: "CORTE", price: "60", img: corteNew, desc: "Cortes clássicos e modernos" },
+  { name: "BARBA", price: "60", img: hero1, desc: "Contorno preciso e barba feita" },
   { name: "COMBO + BARBOTERAPIA", price: "100", img: hero3, desc: "Corte, barba e relaxamento" },
 ];
 
 const TESTIMONIALS = [
-  { initials: "BC", name: "BRUNO CALAZANS", date: "08/04/2025", text: "Cortes clássicos e profissionais excelentes em um ambiente super agradável! Experiência sensacional!", color: "oklch(0.75 0.13 230)" },
-  { initials: "JR", name: "JOSE RODRIGUEZ", date: "08/04/2025", text: "Tendo vivido em vários outros países, eu buscava um certo padrão — algo que unisse técnica, profissionalismo e uma boa experiência.", color: "oklch(0.6 0.05 260)" },
-  { initials: "MO", name: "MATEUS OLIVEIRA", date: "05/04/2025", text: "Atendimento impecável, o barbeiro entendeu exatamente o que eu queria. Voltarei sempre!", color: "oklch(0.78 0.08 300)" },
-  { initials: "RC", name: "RAFAEL COSTA", date: "02/04/2025", text: "Ambiente incrível, música boa e o corte ficou perfeito. Virei cliente fiel.", color: "oklch(0.55 0.18 290)" },
+  { initials: "BC", name: "BRUNO CALAZANS", date: "08/04/2025", rating: 5, text: "Cortes clássicos e profissionais excelentes em um ambiente super agradável!", color: "oklch(0.75 0.13 230)" },
+  { initials: "JR", name: "JOSE RODRIGUEZ", date: "08/04/2025", rating: 4.5, text: "Eu buscava um certo padrão — algo que unisse técnica, profissionalismo e uma boa experiência.", color: "oklch(0.6 0.05 260)" },
+  { initials: "MO", name: "MATEUS OLIVEIRA", date: "05/04/2025", rating: 5, text: "Atendimento impecável, o barbeiro entendeu exatamente o que eu queria. Voltarei sempre!", color: "oklch(0.78 0.08 300)" },
+  { initials: "RC", name: "RAFAEL COSTA", date: "02/04/2025", rating: 4.5, text: "Ambiente incrível, música boa e o corte ficou perfeito. Virei cliente fiel.", color: "oklch(0.55 0.18 290)" },
+  { initials: "LP", name: "LUCAS PEREIRA", date: "28/03/2025", rating: 5, text: "Melhor barbearia da Paulista. Profissionais atenciosos e resultado impecável.", color: "oklch(0.65 0.15 30)" },
+  { initials: "AS", name: "ANDRÉ SILVA", date: "22/03/2025", rating: 4.5, text: "Ótima experiência, ambiente sofisticado e atendimento de primeira.", color: "oklch(0.55 0.12 150)" },
 ];
+
+function Stars({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {[0, 1, 2, 3, 4].map((i) => {
+        const fill = Math.max(0, Math.min(1, rating - i));
+        return (
+          <div key={i} className="relative h-4 w-4">
+            <Star className="absolute inset-0 h-4 w-4 fill-current text-amber-500/25" />
+            <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+              <Star className="h-4 w-4 fill-current text-amber-500" />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function Hero() {
   const [idx, setIdx] = useState(0);
