@@ -5,6 +5,7 @@ import hero1 from "@/assets/hero-1.png";
 import hero2 from "@/assets/hero-2.png";
 import hero3 from "@/assets/hero-3.png";
 import hero4 from "@/assets/hero-4.png";
+import corteNew from "@/assets/corte-new.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -12,18 +13,42 @@ export const Route = createFileRoute("/")({
 
 const HERO_IMAGES = [hero1, hero2, hero3, hero4];
 
+const WHATSAPP = "5511937654207";
+const wa = (msg: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+const DEFAULT_MSG = "Olá, gostaria de marcar um horário.";
+
 const SERVICES = [
-  { name: "CORTE", price: "60", img: hero1, desc: "Cortes clássicos e modernos" },
-  { name: "BARBA", price: "60", img: hero2, desc: "Contorno preciso e barba feita" },
+  { name: "CORTE", price: "60", img: corteNew, desc: "Cortes clássicos e modernos" },
+  { name: "BARBA", price: "60", img: hero1, desc: "Contorno preciso e barba feita" },
   { name: "COMBO + BARBOTERAPIA", price: "100", img: hero3, desc: "Corte, barba e relaxamento" },
 ];
 
 const TESTIMONIALS = [
-  { initials: "BC", name: "BRUNO CALAZANS", date: "08/04/2025", text: "Cortes clássicos e profissionais excelentes em um ambiente super agradável! Experiência sensacional!", color: "oklch(0.75 0.13 230)" },
-  { initials: "JR", name: "JOSE RODRIGUEZ", date: "08/04/2025", text: "Tendo vivido em vários outros países, eu buscava um certo padrão — algo que unisse técnica, profissionalismo e uma boa experiência.", color: "oklch(0.6 0.05 260)" },
-  { initials: "MO", name: "MATEUS OLIVEIRA", date: "05/04/2025", text: "Atendimento impecável, o barbeiro entendeu exatamente o que eu queria. Voltarei sempre!", color: "oklch(0.78 0.08 300)" },
-  { initials: "RC", name: "RAFAEL COSTA", date: "02/04/2025", text: "Ambiente incrível, música boa e o corte ficou perfeito. Virei cliente fiel.", color: "oklch(0.55 0.18 290)" },
+  { initials: "BC", name: "BRUNO CALAZANS", date: "08/04/2025", rating: 5, text: "Cortes clássicos e profissionais excelentes em um ambiente super agradável!", color: "oklch(0.75 0.13 230)" },
+  { initials: "JR", name: "JOSE RODRIGUEZ", date: "08/04/2025", rating: 4.5, text: "Eu buscava um certo padrão — algo que unisse técnica, profissionalismo e uma boa experiência.", color: "oklch(0.6 0.05 260)" },
+  { initials: "MO", name: "MATEUS OLIVEIRA", date: "05/04/2025", rating: 5, text: "Atendimento impecável, o barbeiro entendeu exatamente o que eu queria. Voltarei sempre!", color: "oklch(0.78 0.08 300)" },
+  { initials: "RC", name: "RAFAEL COSTA", date: "02/04/2025", rating: 4.5, text: "Ambiente incrível, música boa e o corte ficou perfeito. Virei cliente fiel.", color: "oklch(0.55 0.18 290)" },
+  { initials: "LP", name: "LUCAS PEREIRA", date: "28/03/2025", rating: 5, text: "Melhor barbearia da Paulista. Profissionais atenciosos e resultado impecável.", color: "oklch(0.65 0.15 30)" },
+  { initials: "AS", name: "ANDRÉ SILVA", date: "22/03/2025", rating: 4.5, text: "Ótima experiência, ambiente sofisticado e atendimento de primeira.", color: "oklch(0.55 0.12 150)" },
 ];
+
+function Stars({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {[0, 1, 2, 3, 4].map((i) => {
+        const fill = Math.max(0, Math.min(1, rating - i));
+        return (
+          <div key={i} className="relative h-4 w-4">
+            <Star className="absolute inset-0 h-4 w-4 fill-current text-amber-500/25" />
+            <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+              <Star className="h-4 w-4 fill-current text-amber-500" />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 function Hero() {
   const [idx, setIdx] = useState(0);
@@ -47,7 +72,7 @@ function Hero() {
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
         <a href="#servicos" className="hover:text-gold">SERVIÇOS</a>
         <a href="#clientes" className="hover:text-gold">NOSSOS CLIENTES</a>
-        <a href="#contato" className="hover:text-gold">CONTATO</a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="hover:text-gold">CONTATO</a>
       </nav>
 
       <div className="relative z-10 flex h-[calc(100%-72px)] flex-col items-center justify-center px-6 text-center">
@@ -61,11 +86,11 @@ function Hero() {
         </p>
 
         <a
-          href="#contato"
-          className="absolute bottom-0 left-1/2 flex h-28 w-56 -translate-x-1/2 flex-col items-center justify-center rounded-t-[2rem] bg-gold text-gold-foreground transition-transform hover:-translate-y-1 hover:-translate-x-1/2"
+          href="#servicos"
+          className="absolute bottom-0 left-1/2 flex h-16 w-36 -translate-x-1/2 flex-col items-center justify-center rounded-t-2xl bg-gold text-gold-foreground transition-transform hover:-translate-y-1 hover:-translate-x-1/2"
         >
-          <span className="text-lg tracking-[0.3em]">AGENDAR</span>
-          <ChevronDown className="mt-2 h-5 w-5" strokeWidth={2.5} />
+          <span className="text-sm tracking-[0.25em]">AGENDAR</span>
+          <ChevronDown className="mt-1 h-4 w-4" strokeWidth={2.5} />
         </a>
       </div>
 
@@ -86,14 +111,24 @@ function Services() {
             <div className="relative h-96 overflow-hidden">
               <img src={s.img} alt={s.name} className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              <div className="absolute right-4 top-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-gold bg-black/70 text-gold">
-                <span className="text-[10px] tracking-wider">R$</span>
-                <span className="text-xl font-semibold leading-none">{s.price}</span>
+              <div className="absolute bottom-20 left-6 right-6 flex items-end justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="font-serif text-2xl font-semibold tracking-wide text-white sm:text-3xl">{s.name}</h3>
+                  <p className="mt-2 text-sm text-white/70">{s.desc}</p>
+                </div>
+                <div className="flex shrink-0 flex-col items-end leading-none text-white">
+                  <span className="text-[10px] font-light tracking-[0.2em] text-white/70">R$</span>
+                  <span className="font-serif text-4xl font-light">{s.price}</span>
+                </div>
               </div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <h3 className="font-serif text-3xl font-semibold tracking-wide text-white">{s.name}</h3>
-                <p className="mt-2 text-sm text-white/70">{s.desc}</p>
-              </div>
+              <a
+                href={wa(`Olá, gostaria de agendar marcar ${s.name.toLowerCase()}.`)}
+                target="_blank"
+                rel="noreferrer"
+                className="absolute bottom-5 left-6 right-6 flex items-center justify-center gap-2 rounded-md bg-gold py-3 text-xs tracking-[0.25em] text-black transition hover:bg-gold/90"
+              >
+                <MessageCircle className="h-4 w-4" /> AGENDAR
+              </a>
             </div>
           </article>
         ))}
@@ -103,9 +138,24 @@ function Services() {
 }
 
 function Testimonials() {
+  const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
-  const perPage = typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3;
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const update = () => setPerPage(window.innerWidth < 768 ? 1 : 3);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   const pages = Math.max(1, TESTIMONIALS.length - perPage + 1);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setPage((p) => (p + 1) % pages), 4000);
+    return () => clearInterval(t);
+  }, [paused, pages]);
 
   return (
     <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
@@ -113,7 +163,7 @@ function Testimonials() {
         O QUE DIZEM<br />NOSSOS CLIENTES
       </h2>
 
-      <div className="relative mx-auto mt-12 max-w-6xl">
+      <div className="relative mx-auto mt-12 max-w-6xl" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onTouchStart={() => setPaused(true)}>
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-out"
@@ -121,21 +171,22 @@ function Testimonials() {
           >
             {TESTIMONIALS.map((t) => (
               <div key={t.name} className="w-full shrink-0 px-3 md:w-1/3">
-                <div className="rounded-2xl bg-white p-6 shadow-xl">
+                <div className="rounded-2xl bg-white p-5 shadow-xl sm:p-6">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold text-white" style={{ backgroundColor: t.color }}>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white sm:h-12 sm:w-12 sm:text-sm" style={{ backgroundColor: t.color }}>
                       {t.initials}
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-bold text-black">{t.name}</p>
-                      <p className="text-xs text-gray-500">{t.date}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-xs font-bold text-black sm:text-sm">{t.name}</p>
+                      <p className="text-[11px] text-gray-500 sm:text-xs">{t.date}</p>
                     </div>
                     <div className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold" style={{ background: "conic-gradient(#4285f4, #ea4335, #fbbc05, #34a853)", color: "white" }}>G</div>
                   </div>
-                  <div className="mt-3 flex gap-0.5 text-amber-500">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  <div className="mt-3 flex items-center gap-2">
+                    <Stars rating={t.rating} />
+                    <span className="text-xs font-semibold text-gray-700">{t.rating.toFixed(1)}</span>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-800">{t.text}</p>
+                  <p className="mt-3 text-[13px] leading-relaxed text-gray-800 sm:text-sm">{t.text}</p>
                   <button className="mt-3 text-sm text-mustard hover:underline" style={{ color: "oklch(0.55 0.14 75)" }}>Leia mais</button>
                 </div>
               </div>
@@ -177,7 +228,7 @@ function Contact() {
       </a>
       <div className="mt-10 flex justify-center gap-6 text-gold">
         <a href="#" aria-label="Instagram" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><Instagram className="h-5 w-5" /></a>
-        <a href="#" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
       </div>
     </section>
   );
@@ -201,6 +252,15 @@ function Index() {
       <Testimonials />
       <Contact />
       <Footer />
+      <a
+        href={wa(DEFAULT_MSG)}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="WhatsApp"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/40 ring-4 ring-[#25D366]/25 transition hover:scale-110"
+      >
+        <MessageCircle className="h-7 w-7" fill="currentColor" strokeWidth={0} />
+      </a>
     </main>
   );
 }
