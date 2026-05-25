@@ -72,7 +72,7 @@ function Hero() {
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
         <a href="#servicos" className="hover:text-gold">SERVIÇOS</a>
         <a href="#clientes" className="hover:text-gold">NOSSOS CLIENTES</a>
-        <a href="#contato" className="hover:text-gold">CONTATO</a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="hover:text-gold">CONTATO</a>
       </nav>
 
       <div className="relative z-10 flex h-[calc(100%-72px)] flex-col items-center justify-center px-6 text-center">
@@ -86,11 +86,11 @@ function Hero() {
         </p>
 
         <a
-          href="#contato"
-          className="absolute bottom-0 left-1/2 flex h-28 w-56 -translate-x-1/2 flex-col items-center justify-center rounded-t-[2rem] bg-gold text-gold-foreground transition-transform hover:-translate-y-1 hover:-translate-x-1/2"
+          href="#servicos"
+          className="absolute bottom-0 left-1/2 flex h-16 w-36 -translate-x-1/2 flex-col items-center justify-center rounded-t-2xl bg-gold text-gold-foreground transition-transform hover:-translate-y-1 hover:-translate-x-1/2"
         >
-          <span className="text-lg tracking-[0.3em]">AGENDAR</span>
-          <ChevronDown className="mt-2 h-5 w-5" strokeWidth={2.5} />
+          <span className="text-sm tracking-[0.25em]">AGENDAR</span>
+          <ChevronDown className="mt-1 h-4 w-4" strokeWidth={2.5} />
         </a>
       </div>
 
@@ -111,14 +111,24 @@ function Services() {
             <div className="relative h-96 overflow-hidden">
               <img src={s.img} alt={s.name} className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              <div className="absolute right-4 top-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-gold bg-black/70 text-gold">
-                <span className="text-[10px] tracking-wider">R$</span>
-                <span className="text-xl font-semibold leading-none">{s.price}</span>
+              <div className="absolute bottom-20 left-6 right-6 flex items-end justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="font-serif text-2xl font-semibold tracking-wide text-white sm:text-3xl">{s.name}</h3>
+                  <p className="mt-2 text-sm text-white/70">{s.desc}</p>
+                </div>
+                <div className="flex shrink-0 flex-col items-end leading-none text-white">
+                  <span className="text-[10px] font-light tracking-[0.2em] text-white/70">R$</span>
+                  <span className="font-serif text-4xl font-light">{s.price}</span>
+                </div>
               </div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <h3 className="font-serif text-3xl font-semibold tracking-wide text-white">{s.name}</h3>
-                <p className="mt-2 text-sm text-white/70">{s.desc}</p>
-              </div>
+              <a
+                href={wa(`Olá, gostaria de agendar marcar ${s.name.toLowerCase()}.`)}
+                target="_blank"
+                rel="noreferrer"
+                className="absolute bottom-5 left-6 right-6 flex items-center justify-center gap-2 rounded-md bg-gold py-3 text-xs tracking-[0.25em] text-black transition hover:bg-gold/90"
+              >
+                <MessageCircle className="h-4 w-4" /> AGENDAR
+              </a>
             </div>
           </article>
         ))}
@@ -128,9 +138,24 @@ function Services() {
 }
 
 function Testimonials() {
+  const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
-  const perPage = typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3;
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const update = () => setPerPage(window.innerWidth < 768 ? 1 : 3);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   const pages = Math.max(1, TESTIMONIALS.length - perPage + 1);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setPage((p) => (p + 1) % pages), 4000);
+    return () => clearInterval(t);
+  }, [paused, pages]);
 
   return (
     <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
@@ -138,7 +163,7 @@ function Testimonials() {
         O QUE DIZEM<br />NOSSOS CLIENTES
       </h2>
 
-      <div className="relative mx-auto mt-12 max-w-6xl">
+      <div className="relative mx-auto mt-12 max-w-6xl" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onTouchStart={() => setPaused(true)}>
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-out"
@@ -146,21 +171,22 @@ function Testimonials() {
           >
             {TESTIMONIALS.map((t) => (
               <div key={t.name} className="w-full shrink-0 px-3 md:w-1/3">
-                <div className="rounded-2xl bg-white p-6 shadow-xl">
+                <div className="rounded-2xl bg-white p-5 shadow-xl sm:p-6">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold text-white" style={{ backgroundColor: t.color }}>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white sm:h-12 sm:w-12 sm:text-sm" style={{ backgroundColor: t.color }}>
                       {t.initials}
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-bold text-black">{t.name}</p>
-                      <p className="text-xs text-gray-500">{t.date}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-xs font-bold text-black sm:text-sm">{t.name}</p>
+                      <p className="text-[11px] text-gray-500 sm:text-xs">{t.date}</p>
                     </div>
                     <div className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold" style={{ background: "conic-gradient(#4285f4, #ea4335, #fbbc05, #34a853)", color: "white" }}>G</div>
                   </div>
-                  <div className="mt-3 flex gap-0.5 text-amber-500">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  <div className="mt-3 flex items-center gap-2">
+                    <Stars rating={t.rating} />
+                    <span className="text-xs font-semibold text-gray-700">{t.rating.toFixed(1)}</span>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-800">{t.text}</p>
+                  <p className="mt-3 text-[13px] leading-relaxed text-gray-800 sm:text-sm">{t.text}</p>
                   <button className="mt-3 text-sm text-mustard hover:underline" style={{ color: "oklch(0.55 0.14 75)" }}>Leia mais</button>
                 </div>
               </div>
@@ -202,7 +228,7 @@ function Contact() {
       </a>
       <div className="mt-10 flex justify-center gap-6 text-gold">
         <a href="#" aria-label="Instagram" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><Instagram className="h-5 w-5" /></a>
-        <a href="#" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
       </div>
     </section>
   );
