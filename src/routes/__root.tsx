@@ -75,10 +75,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Dom Barbearia — Nº1 São Paulo" },
       { name: "description", content: "Dom Barbearia — Cabelo, Barba e Bigode. A nº1 de São Paulo. Agende seu horário." },
       { property: "og:title", content: "Dom Barbearia — Nº1 São Paulo" },
-      { property: "og:description", content: "Cabelo, Barba e Bigode em São Paulo. Agende seu horário." },
+      { property: "og:description", content: "Dom Barbearia — Cabelo, Barba e Bigode. A nº1 de São Paulo. Agende seu horário." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Dom Barbearia — Nº1 São Paulo" },
+      { name: "twitter:description", content: "Dom Barbearia — Cabelo, Barba e Bigode. A nº1 de São Paulo. Agende seu horário." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/11b8eed8-e16c-4d99-8b80-bc672c7158bb/id-preview-a39c6e9f--bb7e14b4-2800-49f7-8496-2b0dade41aea.lovable.app-1779742531607.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/11b8eed8-e16c-4d99-8b80-bc672c7158bb/id-preview-a39c6e9f--bb7e14b4-2800-49f7-8496-2b0dade41aea.lovable.app-1779742531607.png" },
     ],
     links: [
       {
