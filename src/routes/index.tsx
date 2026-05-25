@@ -1,26 +1,206 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { ChevronDown, ChevronLeft, ChevronRight, Instagram, MessageCircle, Star } from "lucide-react";
+import hero1 from "@/assets/hero-1.png";
+import hero2 from "@/assets/hero-2.png";
+import hero3 from "@/assets/hero-3.png";
+import hero4 from "@/assets/hero-4.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+const HERO_IMAGES = [hero1, hero2, hero3, hero4];
+
+const SERVICES = [
+  { name: "CORTE", price: "60", img: hero1, desc: "Cortes clássicos e modernos" },
+  { name: "BARBA", price: "60", img: hero2, desc: "Contorno preciso e barba feita" },
+  { name: "COMBO + BARBOTERAPIA", price: "100", img: hero3, desc: "Corte, barba e relaxamento" },
+];
+
+const TESTIMONIALS = [
+  { initials: "BC", name: "BRUNO CALAZANS", date: "08/04/2025", text: "Cortes clássicos e profissionais excelentes em um ambiente super agradável! Experiência sensacional!", color: "oklch(0.75 0.13 230)" },
+  { initials: "JR", name: "JOSE RODRIGUEZ", date: "08/04/2025", text: "Tendo vivido em vários outros países, eu buscava um certo padrão — algo que unisse técnica, profissionalismo e uma boa experiência.", color: "oklch(0.6 0.05 260)" },
+  { initials: "MO", name: "MATEUS OLIVEIRA", date: "05/04/2025", text: "Atendimento impecável, o barbeiro entendeu exatamente o que eu queria. Voltarei sempre!", color: "oklch(0.78 0.08 300)" },
+  { initials: "RC", name: "RAFAEL COSTA", date: "02/04/2025", text: "Ambiente incrível, música boa e o corte ficou perfeito. Virei cliente fiel.", color: "oklch(0.55 0.18 290)" },
+];
+
+function Hero() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_IMAGES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-black">
+      {HERO_IMAGES.map((src, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-[1800ms] ease-in-out"
+          style={{ opacity: i === idx ? 1 : 0 }}
+        >
+          <img src={src} alt="" className="h-full w-full object-cover grayscale" style={{ animation: i === idx ? "kenburns 7s ease-out forwards" : undefined }} />
+          <div className="absolute inset-0 bg-black/55" />
+        </div>
+      ))}
+
+      <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
+        <a href="#servicos" className="hover:text-gold">SERVIÇOS</a>
+        <a href="#clientes" className="hover:text-gold">NOSSOS CLIENTES</a>
+        <a href="#contato" className="hover:text-gold">CONTATO</a>
+      </nav>
+
+      <div className="relative z-10 flex h-[calc(100%-72px)] flex-col items-center justify-center px-6 text-center">
+        <p className="mb-4 text-sm tracking-[0.35em] text-gold sm:text-base">N°1 — SÃO PAULO</p>
+        <h1 className="font-serif text-6xl font-medium leading-none text-white sm:text-7xl md:text-8xl lg:text-9xl">
+          Dom Barbearia
+        </h1>
+        <div className="my-6 h-px w-40 bg-gold sm:w-56" />
+        <p className="text-sm tracking-[0.3em] text-white sm:text-base md:text-lg">
+          CABELO, BARBA E BIGODE
+        </p>
+
+        <a
+          href="#contato"
+          className="absolute bottom-0 left-1/2 flex h-28 w-56 -translate-x-1/2 flex-col items-center justify-center rounded-t-[2rem] bg-gold text-gold-foreground transition-transform hover:-translate-y-1 hover:-translate-x-1/2"
+        >
+          <span className="text-lg tracking-[0.3em]">AGENDAR</span>
+          <ChevronDown className="mt-2 h-5 w-5" strokeWidth={2.5} />
+        </a>
+      </div>
+
+      <style>{`@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }`}</style>
+    </section>
+  );
+}
+
+function Services() {
+  return (
+    <section id="servicos" className="bg-[oklch(0.13_0.01_60)] px-6 py-24 sm:px-12">
+      <h2 className="mb-16 text-center font-serif text-4xl tracking-wide text-gold sm:text-5xl">
+        NOSSOS SERVIÇOS
+      </h2>
+      <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
+        {SERVICES.map((s) => (
+          <article key={s.name} className="group relative overflow-hidden rounded-lg border border-gold/30 bg-black">
+            <div className="relative h-96 overflow-hidden">
+              <img src={s.img} alt={s.name} className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="absolute right-4 top-4 flex h-16 w-16 flex-col items-center justify-center rounded-full border border-gold bg-black/70 text-gold">
+                <span className="text-[10px] tracking-wider">R$</span>
+                <span className="text-xl font-semibold leading-none">{s.price}</span>
+              </div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <h3 className="font-serif text-3xl font-semibold tracking-wide text-white">{s.name}</h3>
+                <p className="mt-2 text-sm text-white/70">{s.desc}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const [page, setPage] = useState(0);
+  const perPage = typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3;
+  const pages = Math.max(1, TESTIMONIALS.length - perPage + 1);
+
+  return (
+    <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
+      <h2 className="mx-auto max-w-6xl font-sans text-4xl font-extrabold leading-tight text-black sm:text-5xl">
+        O QUE DIZEM<br />NOSSOS CLIENTES
+      </h2>
+
+      <div className="relative mx-auto mt-12 max-w-6xl">
+        <div className="overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${page * (100 / perPage)}%)` }}
+          >
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} className="w-full shrink-0 px-3 md:w-1/3">
+                <div className="rounded-2xl bg-white p-6 shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold text-white" style={{ backgroundColor: t.color }}>
+                      {t.initials}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-bold text-black">{t.name}</p>
+                      <p className="text-xs text-gray-500">{t.date}</p>
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold" style={{ background: "conic-gradient(#4285f4, #ea4335, #fbbc05, #34a853)", color: "white" }}>G</div>
+                  </div>
+                  <div className="mt-3 flex gap-0.5 text-amber-500">
+                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-800">{t.text}</p>
+                  <button className="mt-3 text-sm text-mustard hover:underline" style={{ color: "oklch(0.55 0.14 75)" }}>Leia mais</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button onClick={() => setPage((p) => Math.max(0, p - 1))} className="absolute -left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg md:-left-5">
+          <ChevronLeft className="h-5 w-5 text-black" />
+        </button>
+        <button onClick={() => setPage((p) => Math.min(pages - 1, p + 1))} className="absolute -right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg md:-right-5">
+          <ChevronRight className="h-5 w-5 text-black" />
+        </button>
+
+        <div className="mt-8 flex justify-center gap-2">
+          {[...Array(pages)].map((_, i) => (
+            <button key={i} onClick={() => setPage(i)} className="h-2 w-2 rounded-full transition-all" style={{ backgroundColor: i === page ? "black" : "rgba(0,0,0,0.3)" }} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="contato" className="bg-black px-6 py-24 text-center sm:px-12">
+      <p className="text-sm tracking-[0.35em] text-gold">NOS ENCONTRE</p>
+      <h2 className="mt-6 font-sans text-3xl font-bold text-white sm:text-5xl">
+        Av. Paulista, 1941 — Bela Vista
+      </h2>
+      <a
+        href="https://maps.google.com/?q=Av.+Paulista+1941+Sao+Paulo"
+        target="_blank"
+        rel="noreferrer"
+        className="mx-auto mt-10 flex w-full max-w-2xl items-center justify-center gap-3 border-2 border-gold bg-gold/90 px-8 py-5 text-sm tracking-[0.25em] text-black transition hover:bg-gold sm:text-base"
+      >
+        ABRIR NO GOOGLE MAPS ›
+      </a>
+      <div className="mt-10 flex justify-center gap-6 text-gold">
+        <a href="#" aria-label="Instagram" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><Instagram className="h-5 w-5" /></a>
+        <a href="#" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-gold/30 bg-[oklch(0.11_0.01_60)] px-6 py-12 text-center">
+      <p className="font-serif text-2xl text-gold">DOM Barbearia</p>
+      <p className="mt-3 text-xs text-white/70">© 2025 DOM Barbearia. Todos os direitos reservados.</p>
+      <p className="mt-1 text-xs text-white/70">Seg — Sáb: 9h às 20h | Dom: 9h às 14h</p>
+    </footer>
   );
 }
 
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="bg-background text-foreground">
+      <Hero />
+      <Services />
+      <Testimonials />
+      <Contact />
+      <Footer />
+    </main>
+  );
 }
