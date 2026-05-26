@@ -32,7 +32,7 @@ const DEFAULT_MSG = "Olá, gostaria de marcar um horário.";
 const SERVICES = [
   { name: "CORTE", price: "60", img: corteNew, desc: "Cortes clássicos e modernos" },
   { name: "BARBA", price: "60", img: hero1, desc: "Contorno preciso e barba feita" },
-  { name: "COMBO + BARBOTERAPIA", price: "100", img: hero3, desc: "Corte, barba e relaxamento" },
+  { name: "COMBO ", price: "100", img: hero3, desc: "Corte, barba e barboterapia" },
 ];
 
 const TESTIMONIALS = [
