@@ -172,7 +172,7 @@ function Testimonials() {
   return (
     <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
       <h2 className="mx-auto max-w-6xl font-sans text-4xl font-extrabold leading-tight text-black sm:text-5xl">
-        O QUE DIZEM<br />NOSSOS CLIENTES
+        O QUE NOSSOS<br />CLIENTES DIZEM...
       </h2>
 
       <div className="relative mx-auto mt-12 max-w-6xl" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onTouchStart={() => setPaused(true)}>
