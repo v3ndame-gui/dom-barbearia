@@ -270,6 +270,7 @@ function Index() {
     <main className="bg-background text-foreground">
       <Hero />
       <Services />
+      <Gallery />
       <Testimonials />
       <Contact />
       <Footer />
@@ -278,9 +279,9 @@ function Index() {
         target="_blank"
         rel="noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-5 right-5 z-50 transition hover:scale-110"
+        className="fixed bottom-5 right-5 z-50 overflow-hidden rounded-2xl shadow-2xl transition hover:scale-110"
       >
-        <img src={whatsappLogo} alt="WhatsApp" className="h-14 w-14 drop-shadow-2xl" />
+        <img src={whatsappLogo} alt="WhatsApp" className="block h-14 w-14" />
       </a>
     </main>
   );
