@@ -16,6 +16,7 @@ import gallery6 from "@/assets/gallery-6.png";
 import gallery7 from "@/assets/gallery-7.png";
 import gallery8 from "@/assets/gallery-8.png";
 import gallery9 from "@/assets/gallery-9.png";
+import googleIcon from "@/assets/google-icon.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -82,6 +83,7 @@ function Hero() {
       ))}
 
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
+      <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:justify-center md:gap-12 md:text-sm">
         <a href="#servicos" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">SERVIÇOS</a>
         <a href="#galeria" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
         <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">CONTATO</a>
@@ -192,9 +194,9 @@ function Testimonials() {
   }, [paused, pages]);
 
   return (
-    <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
-      <h2 className="mx-auto max-w-6xl font-sans text-4xl font-extrabold leading-tight text-black sm:text-5xl">
-        O QUE NOSSOS<br />CLIENTES DIZEM...
+    <section id="clientes" className="bg-black px-6 py-24 sm:px-12">
+      <h2 className="mx-auto max-w-6xl whitespace-nowrap text-center font-sans text-lg font-extrabold leading-tight text-gold sm:text-2xl md:text-3xl">
+        O QUE NOSSOS CLIENTES DIZEM...
       </h2>
 
       <div className="relative mx-auto mt-12 max-w-6xl" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onTouchStart={() => setPaused(true)}>
@@ -214,7 +216,7 @@ function Testimonials() {
                       <p className="truncate text-xs font-bold text-black sm:text-sm">{t.name}</p>
                       <p className="text-[11px] text-gray-500 sm:text-xs">{t.date}</p>
                     </div>
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold" style={{ background: "conic-gradient(#4285f4, #ea4335, #fbbc05, #34a853)", color: "white" }}>G</div>
+                    <img src={googleIcon} alt="Google" className="h-6 w-6 rounded-full object-cover" />
                   </div>
                   <div className="mt-3 flex items-center gap-2">
                     <Stars rating={t.rating} />
@@ -237,7 +239,7 @@ function Testimonials() {
 
         <div className="mt-8 flex justify-center gap-2">
           {[...Array(pages)].map((_, i) => (
-            <button key={i} onClick={() => setPage(i)} className="h-2 w-2 rounded-full transition-all" style={{ backgroundColor: i === page ? "black" : "rgba(0,0,0,0.3)" }} />
+            <button key={i} onClick={() => setPage(i)} className="h-2 w-2 rounded-full transition-all" style={{ backgroundColor: i === page ? "var(--gold)" : "rgba(255,255,255,0.3)" }} />
           ))}
         </div>
       </div>
@@ -270,7 +272,7 @@ function Contact() {
         ABRIR NO GOOGLE MAPS ›
       </a>
       <div className="mt-10 flex justify-center gap-6 text-gold">
-        <a href="#" aria-label="Instagram" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><Instagram className="h-5 w-5" /></a>
+        <a href="https://instagram.com/instagram" target="_blank" rel="noreferrer" aria-label="Instagram" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><Instagram className="h-5 w-5" /></a>
         <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="flex h-12 w-12 items-center justify-center rounded-full border border-gold hover:bg-gold hover:text-black"><MessageCircle className="h-5 w-5" /></a>
       </div>
     </section>
@@ -303,7 +305,7 @@ function Index() {
         aria-label="WhatsApp"
         className="fixed bottom-5 right-5 z-50 overflow-hidden rounded-2xl shadow-2xl transition hover:scale-110"
       >
-        <img src={whatsappLogo} alt="WhatsApp" className="block h-14 w-14" />
+        <img src={whatsappLogo} alt="WhatsApp" className="block h-11 w-11 sm:h-14 sm:w-14" />
       </a>
     </main>
   );
