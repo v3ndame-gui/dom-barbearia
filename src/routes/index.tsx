@@ -82,7 +82,6 @@ function Hero() {
         </div>
       ))}
 
-      <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:justify-center md:gap-12 md:text-sm">
         <a href="#servicos" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">SERVIÇOS</a>
         <a href="#galeria" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
