@@ -149,9 +149,6 @@ function Services() {
   );
 }
 
-function Testimonials() {
-}
-
 function Gallery() {
   return (
     <section id="galeria" className="overflow-hidden bg-black py-20">
@@ -174,7 +171,7 @@ function Gallery() {
   );
 }
 
-function TestimonialsBroken() {
+function Testimonials() {
   const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
