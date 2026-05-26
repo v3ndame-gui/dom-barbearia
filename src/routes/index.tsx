@@ -6,6 +6,7 @@ import hero2 from "@/assets/hero-2.png";
 import hero3 from "@/assets/hero-3.png";
 import hero4 from "@/assets/hero-4.png";
 import corteNew from "@/assets/corte-new.png";
+import whatsappLogo from "@/assets/whatsapp.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -70,9 +71,9 @@ function Hero() {
       ))}
 
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
-        <a href="#servicos" className="hover:text-gold">SERVIÇOS</a>
-        <a href="#clientes" className="hover:text-gold">NOSSOS CLIENTES</a>
-        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="hover:text-gold">CONTATO</a>
+        <a href="#servicos" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">SERVIÇOS</a>
+        <a href="#clientes" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">CONTATO</a>
       </nav>
 
       <div className="relative z-10 flex h-[calc(100%-72px)] flex-col items-center justify-center px-6 text-center">
@@ -116,9 +117,9 @@ function Services() {
                   <h3 className="font-serif text-2xl font-semibold tracking-wide text-white sm:text-3xl">{s.name}</h3>
                   <p className="mt-2 text-sm text-white/70">{s.desc}</p>
                 </div>
-                <div className="flex shrink-0 flex-col items-end leading-none text-white">
-                  <span className="text-[10px] font-light tracking-[0.2em] text-white/70">R$</span>
-                  <span className="font-serif text-4xl font-light">{s.price}</span>
+                <div className="flex shrink-0 items-baseline gap-1 font-serif text-3xl font-light leading-none text-white">
+                  <span>R$</span>
+                  <span>{s.price}</span>
                 </div>
               </div>
               <a
