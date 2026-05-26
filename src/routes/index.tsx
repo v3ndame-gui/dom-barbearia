@@ -216,14 +216,23 @@ function Contact() {
   return (
     <section id="contato" className="bg-black px-6 py-24 text-center sm:px-12">
       <p className="text-sm tracking-[0.35em] text-gold">NOS ENCONTRE</p>
-      <h2 className="mt-6 font-sans text-3xl font-bold text-white sm:text-5xl">
+      <h2 className="mt-6 whitespace-nowrap font-sans text-lg font-bold text-white sm:text-3xl md:text-5xl">
         Av. Paulista, 1941 — Bela Vista
       </h2>
+      <div className="mx-auto mt-10 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-lg border border-gold/40 shadow-2xl">
+        <iframe
+          title="Mapa Dom Barbearia"
+          src="https://www.google.com/maps?q=Av.+Paulista+1941+Bela+Vista+S%C3%A3o+Paulo&output=embed"
+          className="h-full w-full"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
       <a
         href="https://maps.google.com/?q=Av.+Paulista+1941+Sao+Paulo"
         target="_blank"
         rel="noreferrer"
-        className="mx-auto mt-10 flex w-full max-w-2xl items-center justify-center gap-3 border-2 border-gold bg-gold/90 px-8 py-5 text-sm tracking-[0.25em] text-black transition hover:bg-gold sm:text-base"
+        className="mx-auto mt-8 flex w-full max-w-2xl items-center justify-center gap-3 border-2 border-gold bg-gold/90 px-8 py-5 text-sm tracking-[0.25em] text-black transition hover:bg-gold sm:text-base"
       >
         ABRIR NO GOOGLE MAPS ›
       </a>
@@ -239,7 +248,7 @@ function Footer() {
   return (
     <footer className="border-t border-gold/30 bg-[oklch(0.11_0.01_60)] px-6 py-12 text-center">
       <p className="font-serif text-2xl text-gold">DOM Barbearia</p>
-      <p className="mt-3 text-xs text-white/70">© 2025 DOM Barbearia. Todos os direitos reservados.</p>
+      <p className="mt-3 text-xs text-white/70">© 2026 DOM Barbearia. Todos os direitos reservados.</p>
       <p className="mt-1 text-xs text-white/70">Seg — Sáb: 9h às 20h | Dom: 9h às 14h</p>
     </footer>
   );
@@ -258,9 +267,9 @@ function Index() {
         target="_blank"
         rel="noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/40 ring-4 ring-[#25D366]/25 transition hover:scale-110"
+        className="fixed bottom-5 right-5 z-50 transition hover:scale-110"
       >
-        <MessageCircle className="h-7 w-7" fill="currentColor" strokeWidth={0} />
+        <img src={whatsappLogo} alt="WhatsApp" className="h-14 w-14 drop-shadow-2xl" />
       </a>
     </main>
   );
