@@ -150,6 +150,31 @@ function Services() {
 }
 
 function Testimonials() {
+}
+
+function Gallery() {
+  return (
+    <section id="galeria" className="overflow-hidden bg-black py-20">
+      <div className="px-6 sm:px-12">
+        <h2 className="mb-12 text-center font-serif text-4xl tracking-wide text-gold sm:text-5xl">
+          NOSSOS CLIENTES
+        </h2>
+      </div>
+      <div className="group relative w-full overflow-hidden">
+        <div className="flex w-max animate-gallery-scroll gap-4 group-hover:[animation-play-state:paused]">
+          {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((src, i) => (
+            <div key={i} className="h-72 w-56 shrink-0 overflow-hidden rounded-xl border border-gold/20 sm:h-96 sm:w-72">
+              <img src={src} alt="" className="h-full w-full object-cover grayscale transition duration-500 hover:grayscale-0" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes gallery-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } } .animate-gallery-scroll { animation: gallery-scroll 40s linear infinite; }`}</style>
+    </section>
+  );
+}
+
+function TestimonialsBroken() {
   const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
