@@ -7,12 +7,23 @@ import hero3 from "@/assets/hero-3.png";
 import hero4 from "@/assets/hero-4.png";
 import corteNew from "@/assets/corte-new.png";
 import whatsappLogo from "@/assets/whatsapp.png";
+import gallery1 from "@/assets/gallery-1.png";
+import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
+import gallery4 from "@/assets/gallery-4.png";
+import gallery5 from "@/assets/gallery-5.png";
+import gallery6 from "@/assets/gallery-6.png";
+import gallery7 from "@/assets/gallery-7.png";
+import gallery8 from "@/assets/gallery-8.png";
+import gallery9 from "@/assets/gallery-9.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 const HERO_IMAGES = [hero1, hero2, hero3, hero4];
+
+const GALLERY_IMAGES = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6, gallery7, gallery8, gallery9];
 
 const WHATSAPP = "5511937654207";
 const wa = (msg: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
@@ -72,7 +83,7 @@ function Hero() {
 
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
         <a href="#servicos" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">SERVIÇOS</a>
-        <a href="#clientes" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
+        <a href="#galeria" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
         <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">CONTATO</a>
       </nav>
 
@@ -138,6 +149,28 @@ function Services() {
   );
 }
 
+function Gallery() {
+  return (
+    <section id="galeria" className="overflow-hidden bg-black py-20">
+      <div className="px-6 sm:px-12">
+        <h2 className="mb-12 text-center font-serif text-4xl tracking-wide text-gold sm:text-5xl">
+          NOSSOS CLIENTES
+        </h2>
+      </div>
+      <div className="group relative w-full overflow-hidden">
+        <div className="flex w-max animate-gallery-scroll gap-4 group-hover:[animation-play-state:paused]">
+          {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((src, i) => (
+            <div key={i} className="h-72 w-56 shrink-0 overflow-hidden rounded-xl border border-gold/20 sm:h-96 sm:w-72">
+              <img src={src} alt="" className="h-full w-full object-cover grayscale transition duration-500 hover:grayscale-0" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes gallery-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } } .animate-gallery-scroll { animation: gallery-scroll 40s linear infinite; }`}</style>
+    </section>
+  );
+}
+
 function Testimonials() {
   const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
@@ -161,7 +194,7 @@ function Testimonials() {
   return (
     <section id="clientes" className="bg-mustard px-6 py-24 sm:px-12">
       <h2 className="mx-auto max-w-6xl font-sans text-4xl font-extrabold leading-tight text-black sm:text-5xl">
-        O QUE DIZEM<br />NOSSOS CLIENTES
+        O QUE NOSSOS<br />CLIENTES DIZEM...
       </h2>
 
       <div className="relative mx-auto mt-12 max-w-6xl" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onTouchStart={() => setPaused(true)}>
@@ -259,6 +292,7 @@ function Index() {
     <main className="bg-background text-foreground">
       <Hero />
       <Services />
+      <Gallery />
       <Testimonials />
       <Contact />
       <Footer />
@@ -267,9 +301,9 @@ function Index() {
         target="_blank"
         rel="noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-5 right-5 z-50 transition hover:scale-110"
+        className="fixed bottom-5 right-5 z-50 overflow-hidden rounded-2xl shadow-2xl transition hover:scale-110"
       >
-        <img src={whatsappLogo} alt="WhatsApp" className="h-14 w-14 drop-shadow-2xl" />
+        <img src={whatsappLogo} alt="WhatsApp" className="block h-14 w-14" />
       </a>
     </main>
   );
