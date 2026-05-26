@@ -6,6 +6,7 @@ import hero2 from "@/assets/hero-2.png";
 import hero3 from "@/assets/hero-3.png";
 import hero4 from "@/assets/hero-4.png";
 import corteNew from "@/assets/corte-new.png";
+import whatsappLogo from "@/assets/whatsapp.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -70,9 +71,9 @@ function Hero() {
       ))}
 
       <nav className="relative z-10 flex items-center justify-end gap-6 px-6 pt-8 text-xs tracking-[0.25em] text-white sm:px-12 md:gap-12 md:text-sm">
-        <a href="#servicos" className="hover:text-gold">SERVIÇOS</a>
-        <a href="#clientes" className="hover:text-gold">NOSSOS CLIENTES</a>
-        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="hover:text-gold">CONTATO</a>
+        <a href="#servicos" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">SERVIÇOS</a>
+        <a href="#clientes" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">NOSSOS CLIENTES</a>
+        <a href={wa(DEFAULT_MSG)} target="_blank" rel="noreferrer" className="whitespace-nowrap text-[10px] hover:text-gold sm:text-xs md:text-sm">CONTATO</a>
       </nav>
 
       <div className="relative z-10 flex h-[calc(100%-72px)] flex-col items-center justify-center px-6 text-center">
@@ -116,9 +117,9 @@ function Services() {
                   <h3 className="font-serif text-2xl font-semibold tracking-wide text-white sm:text-3xl">{s.name}</h3>
                   <p className="mt-2 text-sm text-white/70">{s.desc}</p>
                 </div>
-                <div className="flex shrink-0 flex-col items-end leading-none text-white">
-                  <span className="text-[10px] font-light tracking-[0.2em] text-white/70">R$</span>
-                  <span className="font-serif text-4xl font-light">{s.price}</span>
+                <div className="flex shrink-0 items-baseline gap-1 font-serif text-3xl font-light leading-none text-white">
+                  <span>R$</span>
+                  <span>{s.price}</span>
                 </div>
               </div>
               <a
@@ -215,14 +216,23 @@ function Contact() {
   return (
     <section id="contato" className="bg-black px-6 py-24 text-center sm:px-12">
       <p className="text-sm tracking-[0.35em] text-gold">NOS ENCONTRE</p>
-      <h2 className="mt-6 font-sans text-3xl font-bold text-white sm:text-5xl">
+      <h2 className="mt-6 whitespace-nowrap font-sans text-lg font-bold text-white sm:text-3xl md:text-5xl">
         Av. Paulista, 1941 — Bela Vista
       </h2>
+      <div className="mx-auto mt-10 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-lg border border-gold/40 shadow-2xl">
+        <iframe
+          title="Mapa Dom Barbearia"
+          src="https://www.google.com/maps?q=Av.+Paulista+1941+Bela+Vista+S%C3%A3o+Paulo&output=embed"
+          className="h-full w-full"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
       <a
         href="https://maps.google.com/?q=Av.+Paulista+1941+Sao+Paulo"
         target="_blank"
         rel="noreferrer"
-        className="mx-auto mt-10 flex w-full max-w-2xl items-center justify-center gap-3 border-2 border-gold bg-gold/90 px-8 py-5 text-sm tracking-[0.25em] text-black transition hover:bg-gold sm:text-base"
+        className="mx-auto mt-8 flex w-full max-w-2xl items-center justify-center gap-3 border-2 border-gold bg-gold/90 px-8 py-5 text-sm tracking-[0.25em] text-black transition hover:bg-gold sm:text-base"
       >
         ABRIR NO GOOGLE MAPS ›
       </a>
@@ -238,7 +248,7 @@ function Footer() {
   return (
     <footer className="border-t border-gold/30 bg-[oklch(0.11_0.01_60)] px-6 py-12 text-center">
       <p className="font-serif text-2xl text-gold">DOM Barbearia</p>
-      <p className="mt-3 text-xs text-white/70">© 2025 DOM Barbearia. Todos os direitos reservados.</p>
+      <p className="mt-3 text-xs text-white/70">© 2026 DOM Barbearia. Todos os direitos reservados.</p>
       <p className="mt-1 text-xs text-white/70">Seg — Sáb: 9h às 20h | Dom: 9h às 14h</p>
     </footer>
   );
@@ -257,9 +267,9 @@ function Index() {
         target="_blank"
         rel="noreferrer"
         aria-label="WhatsApp"
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/40 ring-4 ring-[#25D366]/25 transition hover:scale-110"
+        className="fixed bottom-5 right-5 z-50 transition hover:scale-110"
       >
-        <MessageCircle className="h-7 w-7" fill="currentColor" strokeWidth={0} />
+        <img src={whatsappLogo} alt="WhatsApp" className="h-14 w-14 drop-shadow-2xl" />
       </a>
     </main>
   );
