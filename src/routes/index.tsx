@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ChevronDown, ChevronLeft, ChevronRight, Instagram, MessageCircle, Star } from "lucide-react";
+import { getCalApi } from "@calcom/embed-react";
+import Cal from "@calcom/embed-react";
+import { Check, ChevronDown, Handshake, Instagram, MessageCircle, MessageSquare, Smartphone, Star, X } from "lucide-react";
 import hero1 from "@/assets/hero-1.png";
 import hero2 from "@/assets/hero-2.png";
 import hero3 from "@/assets/hero-3.png";
@@ -31,9 +33,9 @@ const wa = (msg: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent
 const DEFAULT_MSG = "Olá, gostaria de marcar um horário.";
 
 const SERVICES = [
-  { name: "CORTE", price: "60", img: corteNew, desc: "Cortes clássicos e modernos" },
-  { name: "BARBA", price: "60", img: hero1, desc: "Contorno preciso e barba feita" },
-  { name: "COMBO ", price: "100", img: hero3, desc: "Corte, barba e barboterapia" },
+  { name: "CORTE", price: "60", img: corteNew, desc: "Cortes clássicos e modernos", cal: "guilherme-melo/corte" },
+  { name: "BARBA", price: "60", img: hero1, desc: "Contorno preciso e barba feita", cal: "guilherme-melo/barba" },
+  { name: "COMBO ", price: "100", img: hero3, desc: "Corte, barba e barboterapia", cal: "guilherme-melo/combo" },
 ];
 
 const TESTIMONIALS = [
