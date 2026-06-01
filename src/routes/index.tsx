@@ -47,6 +47,103 @@ const TESTIMONIALS = [
   { initials: "AS", name: "ANDRÉ SILVA", date: "22/03/2025", rating: 4.5, text: "Ótima experiência, ambiente sofisticado e atendimento de primeira.", color: "oklch(0.55 0.12 150)" },
 ];
 
+function AgendamentoModal({ calLink, onClose }: { calLink: string; onClose: () => void }) {
+  const [booked, setBooked] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const cal = await getCalApi();
+        cal("on", {
+          action: "bookingSuccessful",
+          callback: () => setBooked(true),
+        });
+      } catch (e) {
+        console.warn("Cal init failed", e);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0" style={{ zIndex: 9999, background: "rgba(0,0,0,0.97)" }}>
+      <button
+        onClick={onClose}
+        aria-label="Fechar"
+        className="absolute right-4 top-4 z-10 text-white"
+        style={{ padding: 16, background: "none", border: "none" }}
+      >
+        <X size={32} />
+      </button>
+      {booked ? (
+        <div className="flex h-full w-full items-center justify-center" style={{ background: "#000", padding: 32 }}>
+          <div className="w-full max-w-sm text-center">
+            <div
+              className="mx-auto flex items-center justify-center rounded-full"
+              style={{ width: 64, height: 64, background: "rgba(255,255,255,0.08)" }}
+            >
+              <Check size={32} style={{ color: "#4CAF50" }} />
+            </div>
+            <h3
+              className="font-serif font-bold"
+              style={{ color: "#fff", fontSize: 26, marginTop: 20 }}
+            >
+              Horário Reservado!
+            </h3>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.65)",
+                fontSize: 14,
+                lineHeight: 1.7,
+                marginTop: 12,
+                fontFamily: "Inter, sans-serif",
+              }}
+            >
+              Perfeito! Você receberá a confirmação pelo e-mail cadastrado. Para dúvidas ou cancelamentos, fale diretamente com a gente pelo WhatsApp.
+            </p>
+            <div style={{ height: 1, background: "rgba(201,168,76,0.35)", margin: "24px 0" }} />
+            <button
+              onClick={onClose}
+              style={{
+                background: "#C9A84C",
+                color: "#000",
+                fontFamily: "Inter, sans-serif",
+                fontSize: 12,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                width: "100%",
+                height: 48,
+                borderRadius: 0,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="h-full w-full overflow-auto pt-16">
+          <Cal
+            calLink={calLink}
+            style={{ width: "100%", height: "100%", overflow: "scroll" }}
+            config={{ layout: "month_view", theme: "dark" }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
@@ -107,6 +204,19 @@ function Hero() {
           <span className="text-sm tracking-[0.25em]">AGENDAR</span>
           <ChevronDown className="mt-1 h-4 w-4" strokeWidth={2.5} />
         </a>
+        <p
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center uppercase"
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: 11,
+            letterSpacing: 1,
+            color: "rgba(255,255,255,0.45)",
+            marginTop: 12,
+            whiteSpace: "nowrap",
+          }}
+        >
+          Pelo site, WhatsApp ou pessoalmente — você decide
+        </p>
       </div>
 
       <style>{`@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }`}</style>
